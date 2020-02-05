@@ -7,6 +7,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -23,6 +24,16 @@ public class Robot extends TimedRobot {
   private static final String kCustomAuto = "My Auto";
   private String m_autoSelected;
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
+
+  private static final int FrontLeftWheelChannel = 0;
+  private static final int FrontRightWheelChannel = 1;
+  private static final int RearLeftWheelChannel = 2;
+  private static final int RearRightWheelChannel = 3;
+
+  private Spark FrontLeftWheel = new Spark(FrontLeftWheelChannel);
+  private Spark FrontRightWheel = new Spark(FrontRightWheelChannel);
+  private Spark RearLeftWheel = new Spark(RearLeftWheelChannel);
+  private Spark RearRightWheel = new Spark(RearRightWheelChannel);
 
   /**
    * This function is run when the robot is first started up and should be
