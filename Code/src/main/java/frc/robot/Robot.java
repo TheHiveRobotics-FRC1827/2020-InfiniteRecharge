@@ -25,10 +25,10 @@ public class Robot extends TimedRobot {
   private String m_autoSelected;
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
 
-  private static final int FrontLeftWheelChannel = 0;
-  private static final int FrontRightWheelChannel = 1;
+  private static final int FrontLeftWheelChannel = 4;
+  private static final int FrontRightWheelChannel = 3;
   private static final int RearLeftWheelChannel = 2;
-  private static final int RearRightWheelChannel = 3;
+  private static final int RearRightWheelChannel = 1;
 
   private Spark FrontLeftWheel = new Spark(FrontLeftWheelChannel);
   private Spark FrontRightWheel = new Spark(FrontRightWheelChannel);
