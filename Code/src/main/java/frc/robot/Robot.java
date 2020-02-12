@@ -7,6 +7,9 @@
 
 package frc.robot;
 
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -30,6 +33,11 @@ public class Robot extends TimedRobot {
   private static final int rightDriveSlaveCANId = 2;
   private static final int rightDriveMasterCANId = 1;
 
+  private TalonSRX leftDriveMasterController = new TalonSRX(leftDriveMasterCANId);
+  private TalonSRX rightDriveMasterController = new TalonSRX(rightDriveMasterCANId);
+  private VictorSPX leftDriveSlaveController = new VictorSPX(leftDriveSlaveCANId);
+  private VictorSPX rightDriveSlaveController = new VictorSPX(rightDriveSlaveCANId);
+
   /*
   private Spark FrontLeftWheel = new Spark(FrontLeftWheelChannel);
   private Spark FrontRightWheel = new Spark(FrontRightWheelChannel);
@@ -40,7 +48,7 @@ public class Robot extends TimedRobot {
 
 
 
-
+  
   /**
    * This function is run when the robot is first started up and should be
    * used for any initialization code.
