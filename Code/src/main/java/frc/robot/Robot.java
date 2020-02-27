@@ -6,9 +6,12 @@
 /*----------------------------------------------------------------------------*/
 
 package frc.robot;
+import edu.wpi.first.wpilibj.XboxController;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -37,6 +40,7 @@ public class Robot extends TimedRobot {
   private TalonSRX rightDriveMasterController = new TalonSRX(rightDriveMasterCANId);
   private VictorSPX leftDriveSlaveController = new VictorSPX(leftDriveSlaveCANId);
   private VictorSPX rightDriveSlaveController = new VictorSPX(rightDriveSlaveCANId);
+  XboxController joystick = new XboxController(0); 
 
   /*
   private Spark FrontLeftWheel = new Spark(FrontLeftWheelChannel);
@@ -111,6 +115,30 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
+    leftDriveSlaveController.set(ControlMode.Follower, leftDriveMasterCANId);
+    rightDriveSlaveController.set(ControlMode.Follower, rightDriveMasterCANId);
+
+    if(Math.abs(joystick.getY(Hand.kLeft)) > 0.15)
+		{
+			leftDriveMasterController.set(ControlMode.PercentOutput, -joystick.getY(Hand.kLeft));
+			//leftDriveSlaveController.set(ControlMode.Follower, leftDriveMasterCANId);
+		}
+		else
+		{
+			leftDriveMasterController.set(ControlMode.PercentOutput, 0.0);
+			//leftDriveSlaveController.set(ControlMode.Follower, leftDriveMasterCANId);
+		}
+		
+		if(Math.abs(joystick.getY(Hand.kRight)) > 0.15)
+		{
+      rightDriveMasterController.set(ControlMode.PercentOutput, joystick.getY(Hand.kRight));
+			//rightDriveSlaveController.set(ControlMode.Follower, rightDriveMasterCANId);
+		}
+		else
+		{
+			rightDriveMasterController.set(ControlMode.PercentOutput, 0.0);
+			//rightDriveSlaveController.set(ControlMode.Follower, rightDriveMasterCANId);
+		}
   }
 
   /**
