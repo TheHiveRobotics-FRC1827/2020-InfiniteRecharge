@@ -44,7 +44,8 @@ public class Robot extends TimedRobot {
   private VictorSPX leftDriveSlaveController = new VictorSPX(leftDriveSlaveCANId);
   private VictorSPX rightDriveSlaveController = new VictorSPX(rightDriveSlaveCANId);
   private PWMVictorSPX ballLauncherController = new PWMVictorSPX(ballLauncherChannel);
-  XboxController joystick = new XboxController(0); 
+  XboxController driverJoystick = new XboxController(0); 
+  XboxController ballJoystick = new XboxController(1);
 
   /*
   private Spark FrontLeftWheel = new Spark(FrontLeftWheelChannel);
@@ -136,9 +137,9 @@ public class Robot extends TimedRobot {
     leftDriveSlaveController.set(ControlMode.Follower, leftDriveMasterCANId);
     rightDriveSlaveController.set(ControlMode.Follower, rightDriveMasterCANId);
 
-    if(Math.abs(joystick.getY(Hand.kLeft)) > 0.15)
+    if(Math.abs(driverJoystick.getY(Hand.kLeft)) > 0.15)
 		{
-			leftDriveMasterController.set(ControlMode.PercentOutput, -joystick.getY(Hand.kLeft));
+			leftDriveMasterController.set(ControlMode.PercentOutput, -driverJoystick.getY(Hand.kLeft));
 			//leftDriveSlaveController.set(ControlMode.Follower, leftDriveMasterCANId);
 		}
 		else
@@ -147,9 +148,9 @@ public class Robot extends TimedRobot {
 			//leftDriveSlaveController.set(ControlMode.Follower, leftDriveMasterCANId);
 		}
 		
-		if(Math.abs(joystick.getY(Hand.kRight)) > 0.15)
+		if(Math.abs(driverJoystick.getY(Hand.kRight)) > 0.15)
 		{
-      rightDriveMasterController.set(ControlMode.PercentOutput, joystick.getY(Hand.kRight));
+      rightDriveMasterController.set(ControlMode.PercentOutput, driverJoystick.getY(Hand.kRight));
 			//rightDriveSlaveController.set(ControlMode.Follower, rightDriveMasterCANId);
 		}
 		else
@@ -158,11 +159,11 @@ public class Robot extends TimedRobot {
 			//rightDriveSlaveController.set(ControlMode.Follower, rightDriveMasterCANId);
     }
     //Makes robot ball controller move
-    if(joystick.getAButton()){
+    if(ballJoystick.getBumper(Hand.kRight)){
       ballLauncherController.set(.5);
   
     }
-    else if(joystick.getBButton()){
+    else if(ballJoystick.getBumper(Hand.kLeft)){
       ballLauncherController.set(2);
     }
     else{
