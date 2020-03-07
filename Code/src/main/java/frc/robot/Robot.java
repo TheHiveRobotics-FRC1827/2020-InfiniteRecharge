@@ -12,7 +12,8 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
-
+import edu.wpi.first.wpilibj.PWMVenom;
+import edu.wpi.first.wpilibj.PWMVictorSPX;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -35,11 +36,13 @@ public class Robot extends TimedRobot {
   private static final int leftDriveSlaveCANId = 3;
   private static final int rightDriveSlaveCANId = 2;
   private static final int rightDriveMasterCANId = 1;
+  private static final int ballLauncherChannel = 2;
 
   private TalonSRX leftDriveMasterController = new TalonSRX(leftDriveMasterCANId);
   private TalonSRX rightDriveMasterController = new TalonSRX(rightDriveMasterCANId);
   private VictorSPX leftDriveSlaveController = new VictorSPX(leftDriveSlaveCANId);
   private VictorSPX rightDriveSlaveController = new VictorSPX(rightDriveSlaveCANId);
+  private PWMVictorSPX ballLauncherController = new PWMVictorSPX(ballLauncherChannel);
   XboxController joystick = new XboxController(0); 
 
   /*
@@ -138,9 +141,14 @@ public class Robot extends TimedRobot {
 		{
 			rightDriveMasterController.set(ControlMode.PercentOutput, 0.0);
 			//rightDriveSlaveController.set(ControlMode.Follower, rightDriveMasterCANId);
-		}
+    }
+    //Makes robot ball controller move
+    if(joystick.getAButtonPressed()){
+      ballLauncherController.set(.5);
+  
+    }
   }
-
+  
   /**
    * This function is called periodically during test mode.
    */
