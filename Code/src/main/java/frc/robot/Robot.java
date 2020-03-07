@@ -71,12 +71,15 @@ public class Robot extends TimedRobot {
 		 * the robotInit() method in your program.
 		 */
     //CameraServer.getInstance().startAutomaticCapture();
-    UsbCamera frontCamera = new UsbCamera("frontCam", 0);
-    VideoMode bestVideoMode = new VideoMode(PixelFormat.kMJPEG, 640, 480, 30);
-    frontCamera.setVideoMode(bestVideoMode);
+    //UsbCamera frontCamera = new UsbCamera("frontCam", 0);
+    //VideoMode bestVideoMode = new VideoMode(PixelFormat.kUnknown, 640, 480, 30);
+    //frontCamera.setVideoMode(bestVideoMode);
+    //frontCamera.setResolution(640, 480);
+    //frontCamera.setFPS(30);
 
 		CameraServer server = CameraServer.getInstance();
-    server.startAutomaticCapture(frontCamera);
+    //server.startAutomaticCapture(frontCamera);
+    server.startAutomaticCapture();
 	}
 
 
