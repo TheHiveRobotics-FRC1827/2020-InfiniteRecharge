@@ -37,7 +37,7 @@ public class Robot extends TimedRobot {
   private static final int leftDriveSlaveCANId = 3;
   private static final int rightDriveSlaveCANId = 2;
   private static final int rightDriveMasterCANId = 1;
-  private static final int ballLauncherChannel = 2;
+  private static final int ballLauncherChannel = 1;
 
   private TalonSRX leftDriveMasterController = new TalonSRX(leftDriveMasterCANId);
   private TalonSRX rightDriveMasterController = new TalonSRX(rightDriveMasterCANId);
@@ -158,9 +158,15 @@ public class Robot extends TimedRobot {
 			//rightDriveSlaveController.set(ControlMode.Follower, rightDriveMasterCANId);
     }
     //Makes robot ball controller move
-    if(joystick.getAButtonPressed()){
+    if(joystick.getAButton()){
       ballLauncherController.set(.5);
   
+    }
+    else if(joystick.getBButton()){
+      ballLauncherController.set(2);
+    }
+    else{
+      ballLauncherController.set(0);
     }
   }
   
