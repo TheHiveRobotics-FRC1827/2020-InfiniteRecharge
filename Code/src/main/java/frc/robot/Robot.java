@@ -11,6 +11,9 @@ import edu.wpi.first.wpilibj.XboxController;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+
+import org.opencv.videoio.VideoCapture;
+
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.PWMVenom;
 import edu.wpi.first.wpilibj.PWMVictorSPX;
@@ -18,6 +21,11 @@ import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.cscore.VideoCamera;
+import edu.wpi.cscore.VideoMode;
+import edu.wpi.cscore.VideoSource;
+import edu.wpi.cscore.VideoMode.PixelFormat;
 import edu.wpi.first.cameraserver.CameraServer;
 
 /**
@@ -61,10 +69,13 @@ public class Robot extends TimedRobot {
 		 * is the easiest way to get camera images to the dashboard. Just add this to
 		 * the robotInit() method in your program.
 		 */
-		//CameraServer.getInstance().startAutomaticCapture();
-		CameraServer server = CameraServer.getInstance();
-		server.startAutomaticCapture();
+    //CameraServer.getInstance().startAutomaticCapture();
+    UsbCamera frontCamera = new UsbCamera("frontCam", 0);
+    VideoMode bestVideoMode = new VideoMode(PixelFormat.kMJPEG, 640, 480, 30);
+    frontCamera.setVideoMode(bestVideoMode);
 
+		CameraServer server = CameraServer.getInstance();
+    server.startAutomaticCapture(frontCamera);
 	}
 
 
