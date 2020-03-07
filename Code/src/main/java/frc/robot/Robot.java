@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.cameraserver.CameraServer;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -48,7 +49,20 @@ public class Robot extends TimedRobot {
   private Spark RearLeftWheel = new Spark(RearLeftWheelChannel);
   private Spark RearRightWheel = new Spark(RearRightWheelChannel);
   */
+  public void directUSBVision()
+	{
+		// From example project "Simple Vision":
+		/**
+		 * Uses the CameraServer class to automatically capture video from a USB webcam
+		 * and send it to the FRC dashboard without doing any vision processing. This
+		 * is the easiest way to get camera images to the dashboard. Just add this to
+		 * the robotInit() method in your program.
+		 */
+		//CameraServer.getInstance().startAutomaticCapture();
+		CameraServer server = CameraServer.getInstance();
+		server.startAutomaticCapture();
 
+	}
 
 
 
@@ -59,6 +73,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
+    directUSBVision();
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
