@@ -137,7 +137,7 @@ public class Robot extends TimedRobot {
     leftDriveSlaveController.set(ControlMode.Follower, leftDriveMasterCANId);
     rightDriveSlaveController.set(ControlMode.Follower, rightDriveMasterCANId);
 
-    if(Math.abs(driverJoystick.getY(Hand.kLeft)) > 0.15)
+    if(Math.abs(driverJoystick.getY(Hand.kLeft)) > 0.2)
 		{
 			leftDriveMasterController.set(ControlMode.PercentOutput, -driverJoystick.getY(Hand.kLeft));
 			//leftDriveSlaveController.set(ControlMode.Follower, leftDriveMasterCANId);
@@ -148,7 +148,7 @@ public class Robot extends TimedRobot {
 			//leftDriveSlaveController.set(ControlMode.Follower, leftDriveMasterCANId);
 		}
 		
-		if(Math.abs(driverJoystick.getY(Hand.kRight)) > 0.15)
+		if(Math.abs(driverJoystick.getY(Hand.kRight)) > 0.2)
 		{
       rightDriveMasterController.set(ControlMode.PercentOutput, driverJoystick.getY(Hand.kRight));
 			//rightDriveSlaveController.set(ControlMode.Follower, rightDriveMasterCANId);
@@ -159,11 +159,11 @@ public class Robot extends TimedRobot {
 			//rightDriveSlaveController.set(ControlMode.Follower, rightDriveMasterCANId);
     }
     //Makes robot ball controller move
-    if(ballJoystick.getBumper(Hand.kRight)){
+    if(ballJoystick.getAButton()){
       ballLauncherController.set(.5);
   
     }
-    else if(ballJoystick.getBumper(Hand.kLeft)){
+    else if(ballJoystick.getBButton()){
       ballLauncherController.set(2);
     }
     else{
