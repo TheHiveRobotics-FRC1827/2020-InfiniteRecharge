@@ -9,6 +9,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.XboxController;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
@@ -148,8 +149,29 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
+
+    // the slave controllers are the secondary motor controllers for the 2nd motor in each gearbox
+    // this sets them to mirror each other and behave identically
+    // (never drive at different speeds or in different directions)
+    // TODO move to teleopInit?
     leftDriveSlaveController.set(ControlMode.Follower, leftDriveMasterCANId);
     rightDriveSlaveController.set(ControlMode.Follower, rightDriveMasterCANId);
+
+    /*
+    CTRE Docs: "Follower motor controllers have separate neutral modes than their masters, 
+    so you must choose both. Additionally, you may want to mix your neutral modes to 
+    achieve a partial electric brake when using multiple motors."
+    https://phoenix-documentation.readthedocs.io/en/latest/ch13_MC.html
+
+    This makes the motor controllers brake/stop when the driver stops driving,
+    instead of coasting.
+    */
+    // TODO move to teleopInit?
+    leftDriveMasterController.setNeutralMode(NeutralMode.Brake);
+    leftDriveSlaveController.setNeutralMode(NeutralMode.Brake);
+    rightDriveMasterController.setNeutralMode(NeutralMode.Brake);
+    rightDriveSlaveController.setNeutralMode(NeutralMode.Brake);
+
 
     if(Math.abs(driverJoystick.getY(Hand.kLeft)) > 0.2)
 		{
